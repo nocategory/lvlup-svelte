@@ -1,13 +1,18 @@
 <script>
-  export let quizName = 'My Quiz'
+  let result = ''
+  let correctAnswer = 'c'
 
-  let a = 0
-  let b = 0
+  function checkAnswer(answer) {
+    return answer === correctAnswer
+      ? (result = 'Correct!!!!')
+      : (result = 'Wrong DUH!')
+  }
 </script>
 
 <div>
-  <h2>{quizName}</h2>
-  <h1>{a + b}</h1>
-  <input type="number" bind:value={a} />
-  <input type="number" bind:value={b} />
+  <h1>{result}</h1>
+  <button on:click={() => checkAnswer('a')}>Answer A</button>
+  <button on:click={() => checkAnswer('b')}>Answer B</button>
+  <button on:click={() => checkAnswer('c')}>Answer C</button>
+  <button on:click={() => checkAnswer('d')}>Answer D</button>
 </div>
