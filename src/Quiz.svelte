@@ -8,9 +8,17 @@
       ? (result = 'Correct!!!!')
       : (result = 'Wrong DUH!')
   }
+
+  async function getQuiz() {
+    const res = await fetch(
+      'https://opentdb.com/api.php?amount=10&category=12&type=multiple'
+    )
+    const data = await res.json()
+  }
 </script>
 
 <div>
+  <button on:click={getQuiz}>Get Quiz</button>
   {#if result}
     <h1>{result}</h1>
   {:else}
