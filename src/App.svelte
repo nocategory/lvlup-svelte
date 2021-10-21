@@ -3,4 +3,4 @@
 </script>
 
 <h1>Quiz!</h1>
-<Quiz quizName="Wowzers" />
+<Quiz />
