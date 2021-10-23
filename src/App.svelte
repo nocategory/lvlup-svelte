@@ -2,5 +2,5 @@
   import Quiz from './Quiz.svelte'
 </script>
 
-<h1>Quiz!</h1>
+<h1>Music Quiz</h1>
 <Quiz />

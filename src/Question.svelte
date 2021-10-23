@@ -1,5 +1,7 @@
 <script>
   export let question
+  export let nextQuestion
+  export let addScore
 
   let isCorrect = false
   let isAnswered = false
@@ -18,11 +20,10 @@
     }),
   ].sort(() => Math.random() - 0.5)
 
-  console.log(answers)
-
-  function handleClick(correct) {
+  function checkAnswer(correct) {
     isCorrect = correct
     isAnswered = true
+    correct ? addScore() : null
   }
 </script>
 
@@ -37,7 +38,13 @@
 {/if}
 
 {#each answers as answer}
-  <button on:click={() => handleClick(answer.correct)} disabled={isCorrect}
+  <button on:click={() => checkAnswer(answer.correct)} disabled={isCorrect}
     >{@html answer.answer}</button
   >
 {/each}
+
+{#if isAnswered}
+  <div>
+    <button on:click={nextQuestion}>Next Question</button>
+  </div>
+{/if}
