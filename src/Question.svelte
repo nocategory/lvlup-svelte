@@ -32,11 +32,13 @@
 <h3>{@html question.question}</h3>
 
 {#if isAnswered}
-  {#if isCorrect}
-    <h4>You got it right!</h4>
-  {:else}
-    <h4>You got it wrong!</h4>
-  {/if}
+  <h4 class:isCorrect class:isIncorrect={!isCorrect}>
+    {#if isCorrect}
+      You got it right!
+    {:else}
+      You got it wrong!
+    {/if}
+  </h4>
 {/if}
 
 {#each answers as answer}
@@ -50,3 +52,12 @@
     <button on:click={nextQuestion}>Next Question</button>
   </div>
 {/if}
+
+<style>
+  h4.isCorrect {
+    color: green;
+  }
+  h4.isIncorrect {
+    color: red;
+  }
+</style>
