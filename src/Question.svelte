@@ -21,9 +21,11 @@
   ].sort(() => Math.random() - 0.5)
 
   function checkAnswer(correct) {
-    isCorrect = correct
-    isAnswered = true
-    correct ? addScore() : null
+    if (!isAnswered) {
+      isCorrect = correct
+      isAnswered = true
+      correct ? addScore() : null
+    }
   }
 </script>
 
@@ -38,7 +40,7 @@
 {/if}
 
 {#each answers as answer}
-  <button on:click={() => checkAnswer(answer.correct)} disabled={isCorrect}
+  <button on:click={() => checkAnswer(answer.correct)} disabled={isAnswered}
     >{@html answer.answer}</button
   >
 {/each}

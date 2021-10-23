@@ -26,6 +26,11 @@
   function addScore() {
     score++
   }
+
+  $: if (score > 5 || activeQuestion > 9) {
+    alert(`You finished with a score of ${score}/10 !`)
+    resetQuiz()
+  }
 </script>
 
 <div>
