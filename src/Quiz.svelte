@@ -1,4 +1,5 @@
 <script>
+  import { blur } from 'svelte/transition'
   import Question from './Question.svelte'
   let activeQuestion = 0
   let score = 0
@@ -39,9 +40,11 @@
   {:then data}
     {#each data.results as question, k}
       {#if k === activeQuestion}
-        <Question {addScore} {nextQuestion} {question}>
-          {question}
-        </Question>
+        <div in:blur={{ delay: 400 }} out:blur={{ duration: 400 }}>
+          <Question {addScore} {nextQuestion} {question}>
+            {question}
+          </Question>
+        </div>
       {/if}
     {/each}
   {/await}
