@@ -1,8 +1,10 @@
 <script>
   import { blur } from 'svelte/transition'
   import Question from './Question.svelte'
+  import Modal from './Modal.svelte'
   let activeQuestion = 0
   let score = 0
+  let isModalOpen = false
   let quiz = getQuiz()
 
   async function getQuiz() {
@@ -18,6 +20,7 @@
   }
 
   function resetQuiz() {
+    isModalOpen = false
     activeQuestion = 0
     score = 0
     quiz = getQuiz()
@@ -28,8 +31,7 @@
   }
 
   $: if (score > 5 || activeQuestion > 9) {
-    alert(`You finished with a score of ${score}/10 !`)
-    resetQuiz()
+    isModalOpen = true
   }
 </script>
 
@@ -54,3 +56,10 @@
     {/each}
   {/await}
 </div>
+
+{#if isModalOpen}
+  <Modal>
+    <h2>You finished with a score of {score}/10 !</h2>
+    <button on:click={resetQuiz}>New Quiz</button>
+  </Modal>
+{/if}
