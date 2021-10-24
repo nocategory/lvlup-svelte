@@ -58,8 +58,7 @@
 </div>
 
 {#if isModalOpen}
-  <Modal>
+  <Modal on:close={resetQuiz}>
     <h2>You finished with a score of {score}/10 !</h2>
-    <button on:click={resetQuiz}>New Quiz</button>
   </Modal>
 {/if}

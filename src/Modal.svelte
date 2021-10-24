@@ -1,10 +1,14 @@
 <script>
   import { scale } from 'svelte/transition'
+  import { createEventDispatcher } from 'svelte'
+
+  const dispatch = createEventDispatcher()
 </script>
 
 <div class="modal-back">
   <div class="modal" transition:scale>
     <slot />
+    <button on:click={() => dispatch('close')}>New Quiz</button>
   </div>
 </div>
 
