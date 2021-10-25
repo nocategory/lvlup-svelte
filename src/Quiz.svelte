@@ -2,8 +2,7 @@
   import { blur } from 'svelte/transition'
   import Question from './Question.svelte'
   import Modal from './Modal.svelte'
-  let activeQuestion = 0
-  let score = 0
+  import { score, activeQuestion } from './store.js'
   let isModalOpen = false
   let quiz = getQuiz()
 
@@ -16,21 +15,17 @@
   }
 
   function nextQuestion() {
-    activeQuestion++
+    $activeQuestion++
   }
 
   function resetQuiz() {
     isModalOpen = false
-    activeQuestion = 0
-    score = 0
+    $activeQuestion = 0
+    $score = 0
     quiz = getQuiz()
   }
 
-  function addScore() {
-    score++
-  }
-
-  $: if (score > 5 || activeQuestion > 9) {
+  $: if (score > 5 || $activeQuestion > 9) {
     isModalOpen = true
   }
 </script>
@@ -38,19 +33,17 @@
 <div>
   <button on:click={resetQuiz}>New Quiz</button>
 
-  <h3>Score: {score}</h3>
+  <h3>Score: {$score}</h3>
 
-  <h3>Question #{activeQuestion + 1}</h3>
+  <h3>Question #{$activeQuestion + 1}</h3>
 
   {#await quiz}
     <h4>Loading...</h4>
   {:then data}
     {#each data.results as question, k}
-      {#if k === activeQuestion}
+      {#if k === $activeQuestion}
         <div in:blur={{ delay: 400 }} out:blur={{ duration: 400 }}>
-          <Question {addScore} {nextQuestion} {question}>
-            {question}
-          </Question>
+          <Question {nextQuestion} {question} />
         </div>
       {/if}
     {/each}
@@ -59,6 +52,6 @@
 
 {#if isModalOpen}
   <Modal on:close={resetQuiz}>
-    <h2>You finished with a score of {score}/10 !</h2>
+    <h2>You finished with a score of {$score}/10 !</h2>
   </Modal>
 {/if}

@@ -1,7 +1,7 @@
 <script>
+  import { score } from './store.js'
   export let question
   export let nextQuestion
-  export let addScore
 
   let isCorrect = false
   let isAnswered = false
@@ -24,7 +24,7 @@
     if (!isAnswered) {
       isCorrect = correct
       isAnswered = true
-      correct ? addScore() : null
+      correct ? $score++ : null
     }
   }
 </script>
